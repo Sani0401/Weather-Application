@@ -1,0 +1,170 @@
+body {
+    margin: 0;
+     /* Hide scrollbars since the video covers the entire viewport */
+  }
+  
+  .heading {
+    color: #F6F4EB;
+    font-family: 'Nunito', sans-serif;
+  }
+  
+  .video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    z-index: 0; /* Set the video to be behind other elements */
+  }
+  
+  .video {
+    object-fit: cover; /* Ensure the video covers the entire container */
+  }
+  
+  .content {
+    position: relative;
+    z-index: 1; /* Set the content to be above the video */
+    text-align: center; /* Center your content if needed */
+    padding: 20px;
+    color: white; /* Text color for the content */
+  }
+  
+  .Wbutton{
+    position: relative;
+    width: 150px;
+    height: 40px;
+    right: 100px;
+    top: 50px;
+    
+  }
+  .Sbutton{
+    position: relative;
+    width: 150px;
+    height: 40px;
+    left: 100px;
+    top: 50px;
+    
+  }
+
+  .M__image{
+    margin-top: 100px;
+    width: 300px;
+  }
+
+  .I__button{
+    width: 150px;
+    margin-top: 30px;
+    margin-left: 20px;
+  }
+  
+  .I__heading{
+    margin-left: 10px;
+  }
+
+
+
+  .A__input{
+    border-radius: 5px;
+    height: 40px;
+    width: 300px;
+    margin-top: 100px;
+
+    
+  }
+
+  .A__btn{
+    height: 40px;
+    width: 80px;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    
+  }
+
+  .flag{
+    width: 50px;
+    height: 40px;
+    margin-top: 10px;
+  }
+
+  #location{
+    margin: 10px;
+  }
+
+  .span{
+    position: relative;
+    z-index: 2;
+    left: 530px;
+    top: 20px;
+  }
+
+.cloud__desc{
+    margin-right: 9px;
+   margin-top: 20px;
+    font-size: 30px;
+}
+
+.temperature{
+  height: 250px;
+width: 300px;
+background-color: #F5F5F5;
+margin-left: 100px;
+border-radius: 10px;
+opacity: 50%;
+}
+
+.humidity{
+  height: 250px;
+width: 300px;
+background-color: #F5F5F5;
+margin-left: 100px;
+border-radius: 10px;
+opacity: 50%;
+
+}
+
+.windspeed{
+    height: 250px;
+    width: 300px;
+    background-color: #F5F5F5;
+    margin-left: 100px;
+    border-radius: 10px;
+    opacity: 50%;
+}
+
+.container{
+    margin-top: 50px;
+}
+.temp__heading{
+    color: #737171;
+    margin-top: 30px;
+   
+}
+
+.temp__image{
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    
+}
+
+#temperature__value{
+    color: black;
+    margin-right: 30px;
+}
+
+#humidity__value{
+  color: black;
+}
+
+#windspeed__value{
+  color: black;
+}
+
+#data__img{
+margin-right: 50px;
+  
+}
+
+#flag__img{
+  width: 100px;
+}
+

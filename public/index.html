@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weather Application</title>
+    <link
+      rel="icon"
+      href="https://cdn-icons-png.flaticon.com/512/7477/7477790.png"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Add any additional styles here if needed */
+      .Yweather,
+      .A__weather {
+        display: none; /* Initially hide both divs */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="video-container">
+      <video
+        autoplay
+        muted
+        loop
+        id="background-video"
+        class="video"
+        style="width: 1300px; height: 800"
+      >
+        <source src="video.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="content">
+      <h1 class="heading">Weather Application</h1>
+
+      <button
+        type="button"
+        class="Wbutton btn btn-outline-dark"
+        id="yourWeatherButton"
+      >
+        Your Weather
+      </button>
+      <button
+        type="button"
+        class="Sbutton btn btn-outline-dark"
+        id="searchWeatherButton"
+      >
+        Search Weather
+      </button>
+
+      <div class="Yweather" id="Yweather">
+        <img
+          class="M__image"
+          src="./235-2350691_map-marker-google-map-marker-yellow__1_-removebg-preview.png"
+          alt="Loading"
+          srcset=""
+        />
+        <h3 class="I__heading">Allow access to your location.</h3>
+        <button
+          id="your__weather"
+          type="button"
+          class="I__button btn btn-outline-primary"
+        >
+          Allow
+        </button>
+      </div>
+      <div class="A__weather" id="Aweather">
+        <form action="/" method="post">
+          <input
+            class="A__input"
+            type="text"
+            placeholder="Enter the loction"
+            name="city__name"
+          />
+          <button type="submit" id="submit__button" class="A__btn btn btn-info">
+            Search
+          </button>
+        </form>
+      </div>
+
+      <div id="Display__weather" class="Display__weather" style="display: none">
+        <span class="span" style="display: flex"
+          ><h2 id="location"></h2>
+          <img id="flag__img" src=""
+        /></span>
+        <img id="data__img" src="" alt="" srcset="" />
+        <div class="container" style="display: flex">
+          <div class="temperature">
+            <h2 class="temp__heading">Temperature</h2>
+            <img
+              class="temp__image"
+              src="https://thenounproject.com/api/private/icons/1065017/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+              alt=""
+              srcset=""
+            />
+            <h3 class="temperature__value" id="temperature__value"></h3>
+          </div>
+          <div class="humidity">
+            <h2 class="temp__heading">Humidity</h2>
+            <img
+              class="temp__image"
+              src="https://thenounproject.com/api/private/icons/1564061/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+              alt=""
+              srcset=""
+            />
+            <h3 id="humidity__value"></h3>
+          </div>
+          <div class="windspeed">
+            <h2 class="temp__heading">Wind Speed</h2>
+            <img
+              class="temp__image"
+              src="https://thenounproject.com/api/private/icons/4256820/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+              alt=""
+              srcset=""
+            />
+            <h3 id="windspeed__value"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Get references to the buttons and divs
+      const yourWeatherButton = document.getElementById("yourWeatherButton");
+      const searchWeatherButton = document.getElementById(
+        "searchWeatherButton"
+      );
+      const submit__btn = document.getElementById("submit__button");
+      const YweatherDiv = document.getElementById("Yweather");
+      const AweatherDiv = document.getElementById("Aweather");
+
+      // Add click event listeners to the buttons
+      yourWeatherButton.addEventListener("click", function () {
+        // Show the "Your Weather" div and hide the "Search Weather" div
+        YweatherDiv.style.display = "block";
+        AweatherDiv.style.display = "none";
+        Display__weather.style.display = "none";
+      });
+
+      searchWeatherButton.addEventListener("click", function () {
+        // Show the "Search Weather" div and hide the "Your Weather" div
+        YweatherDiv.style.display = "none";
+        AweatherDiv.style.display = "block";
+        Display__weather.style.display = "none";
+      });
+
+      submit__btn.addEventListener("click", async function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        Display__weather.style.display = "block";
+
+        // Fetch weather data from the server
+        const city = document.querySelector("input[name='city__name']").value;
+
+        try {
+          const response = await fetch("/", {
+            method: "POST", // Specify the POST method
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `city__name=${city}`,
+          });
+
+          if (response.ok) {
+            const contentType = response.headers.get("Content-Type");
+            if (contentType && contentType.includes("application/json")) {
+              const data = await response.json(); // Parse the response as JSON
+
+              // Update the HTML elements to display the weather information
+              document.getElementById("location").textContent = data.location;
+              document.getElementById("temperature__value").textContent =
+                data.temperature + "°C";
+              document.getElementById("humidity__value").textContent =
+                data.humidity_per + "%";
+              document.getElementById("windspeed__value").textContent =
+                data.wind_speed + " Kmph";
+              const imgdata = document.getElementById("data__img");
+              imgdata.src =
+                "https://openweathermap.org/img/wn/" +
+                data.cloud_icon +
+                "@2x.png";
+              const flag = document.getElementById("flag__img");
+              const cn = data.country.toLowerCase();
+              flag.src = "https://flagcdn.com/16x12/" + cn + ".png";
+
+              // Update other elements similarly...
+            } else {
+              console.error("Response is not in JSON format");
+            }
+          } else {
+            console.error("Error fetching data: " + response.statusText);
+          }
+        } catch (error) {
+          console.error("Error:", error.message);
+        }
+      });
+      document
+        .getElementById("your__weather")
+        .addEventListener("click", function () {
+          Yweather.style.display = "none";
+          Display__weather.style.display = "block";
+          Aweather.style.display = "none";
+        });
+    </script>
+  </body>
+</html>
